@@ -1,53 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="IntergrateGUI" default="deploy" basedir=".">
-
-    <!-- Directories -->
-    <property name="src.dir" value="src"/>
-    <property name="web.dir" value="web"/>
-    <property name="build.dir" value="build"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="war.file" value="${build.dir}/IntergrateGUI.war"/>
-    <property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
-    <property name="tomcat.lib" value="${tomcat.dir}/lib"/>
-    <property name="tomcat.webapps" value="${tomcat.dir}/webapps"/>
-    <property name="lib.dir" value="lib"/>
-
-    <!-- Classpath -->
-    <path id="project.classpath">
-        <fileset dir="${lib.dir}">
-            <include name="*/.jar"/>
-        </fileset>
-    </path>
-
-    <!-- Clean -->
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-    </target>
-
-    <!-- Init -->
-    <target name="init">
-        <mkdir dir="${classes.dir}"/>
-    </target>
-
-    <!-- Compile -->
-    <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true">
-            <classpath refid="project.classpath"/>
-        </javac>
-    </target>
-
-    <!-- Package WAR -->
-    <target name="war" depends="compile">
-        <war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web.xml">
-            <fileset dir="${web.dir}"/>
-            <classes dir="${classes.dir}"/>
-            <lib dir="${lib.dir}" includes="*/.jar"/>
-        </war>
-    </target>
-
-    <!-- Deploy WAR to Tomcat -->
-    <target name="deploy" depends="war">
-        <copy file="${war.file}" todir="${tomcat.webapps}"/>
-    </target>
-
-</project>
+ <property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
+     <property name="tomcat.lib" value="${tomcat.dir}/lib"/>
+     <property name="tomcat.webapps" value="${tomcat.dir}/webapps"/>
+ 
+     <!-- Classpath with dependencies -->
+     
+     <!-- Classpath -->
+     <path id="project.classpath">
+         <fileset dir="lib">
+             <include name="*.jar"/>
+         </fileset>
+         <!-- Add specific jars for javax.annotation and AWS SDK -->
+         <pathelement location="lib/javax.annotation-api-1.3.2.jar"/>
+         <pathelement location="lib/aws-sdk-core-2.20.12.jar"/>
+         <pathelement location="lib/aws-sdk-s3-2.20.12.jar"/>
+     </path>
+ 
+     <!-- Init -->
+     <target name="init">
+         <mkdir dir="${classes.dir}"/>
+     </target>
+ 
+     <!-- Clean -->
+     <target name="clean">
+         <delete dir="${build.dir}"/>
+     </target>
+ 
+     <!-- Init -->
+     <target name="init">
+         <mkdir dir="${classes.dir}"/>
+     </target>
+ 
+     <!-- Compile -->
+     <target name="compile" depends="init">
+         <mkdir dir="build/classes"/>
+         <javac srcdir="src/java"
+                destdir="build/classes"
+                includeantruntime="false"
+                classpathref="project.classpath"
+                debug="true" />
+         <mkdir dir="${classes.dir}"/>
+         <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true">
+             <classpath>
+                 <pathelement location="${tomcat.lib}/servlet-api.jar"/>
+                 <fileset dir="lib">
+                     <include name="*.jar"/>
+                 </fileset>
+             </classpath>
+         </javac>
+     </target>
+ 
+     <!-- Package WAR -->

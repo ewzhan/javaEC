@@ -1,26 +1,14 @@
- <property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
+<property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
      <property name="tomcat.lib" value="${tomcat.dir}/lib"/>
      <property name="tomcat.webapps" value="${tomcat.dir}/webapps"/>
- 
-     <!-- Classpath with dependencies -->
-     
+   
      <!-- Classpath -->
      <path id="project.classpath">
          <fileset dir="lib">
              <include name="*.jar"/>
          </fileset>
-         <!-- Add specific jars for javax.annotation and AWS SDK -->
-         <pathelement location="lib/javax.annotation-api-1.3.2.jar"/>
-         <pathelement location="lib/aws-sdk-core-2.20.12.jar"/>
-         <pathelement location="lib/aws-sdk-s3-2.20.12.jar"/>
-     </path>
- 
-     <!-- Init -->
-     <target name="init">
-         <mkdir dir="${classes.dir}"/>
-     </target>
- 
-     <!-- Clean -->
+</path>
+<!-- Clean -->
      <target name="clean">
          <delete dir="${build.dir}"/>
      </target>
@@ -32,13 +20,7 @@
  
      <!-- Compile -->
      <target name="compile" depends="init">
-         <mkdir dir="build/classes"/>
-         <javac srcdir="src/java"
-                destdir="build/classes"
-                includeantruntime="false"
-                classpathref="project.classpath"
-                debug="true" />
-         <mkdir dir="${classes.dir}"/>
+<mkdir dir="${classes.dir}"/>
          <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true">
              <classpath>
                  <pathelement location="${tomcat.lib}/servlet-api.jar"/>

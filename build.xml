@@ -10,21 +10,14 @@
     <property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
     <property name="tomcat.lib" value="${tomcat.dir}/lib"/>
     <property name="tomcat.webapps" value="${tomcat.dir}/webapps"/>
-<path id="project.classpath">
-    <fileset dir="lib">
-        <include name="*/.jar"/>
-    </fileset>
-</path>
-
-<target name="compile">
-    <mkdir dir="build/classes"/>
-    <javac srcdir="src/java"
-           destdir="build/classes"
-           includeantruntime="false"
-           classpathref="project.classpath"
-           debug="true" />
-</target>
     
+    <!-- Classpath -->
+    <path id="project.classpath">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -37,9 +30,13 @@
 
     <!-- Compile -->
     <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" debug="true">
             <classpath>
                 <pathelement location="${tomcat.lib}/servlet-api.jar"/>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
             </classpath>
         </javac>
     </target>

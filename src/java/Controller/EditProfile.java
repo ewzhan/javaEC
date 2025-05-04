@@ -19,6 +19,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+
 @WebServlet({"/customerAccount","/customerLogout"})
 @MultipartConfig(maxFileSize = 5 * 1024 * 1024) // 5MB
 public class EditProfile extends HttpServlet {
@@ -130,7 +135,7 @@ public class EditProfile extends HttpServlet {
         String stringPath = currentPath + File.separator + "web" + File.separator + "uploads";
         Path nowPath = Paths.get(stringPath, fileName);
         File uploadDir = new File(stringPath);
-
+        
         if (!uploadDir.exists()){
             uploadDir.mkdirs();
         }

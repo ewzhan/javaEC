@@ -137,7 +137,7 @@ public class EditProfile extends HttpServlet {
 
         try (InputStream fileContent = filePart.getInputStream()) {
             Files.copy(fileContent,nowPath,StandardCopyOption.REPLACE_EXISTING);
-            customer.setProfileImage("uploads/"+fileName);
+            customer.setProfileImage("https://wenzhanbucket.s3.amazonaws.com/images/"+fileName);
         }catch(Exception ex){
             ex.printStackTrace();
             response.getWriter().print("The image upload fail.");

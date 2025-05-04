@@ -1,24 +1,4 @@
-[00:23, 05/05/2025] Xuan Liang: <project name="MyWebApp" default="deploy" basedir=".">
-    <target name="init">
-        <mkdir dir="build/classes"/>
-    </target>
-
-    <target name="compile" depends="init">
-        <javac srcdir="src" destdir="build/classes"/>
-    </target>
-
-    <target name="package" depends="compile">
-        <war destfile="build/MyWebApp.war" webxml="web/WEB-INF/web.xml">
-            <fileset dir="web"/>
-            <classes dir="build/classes"/>
-        </war>
-    </target>
-
-    <target name="deploy" depends="package">
-        <copy file="build/MyWebApp.war" todir="/opt/tomcat/webapps"/>
-    </target>
-</project>
-[00:32, 05/05/2025] Xuan Liang: <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="IntergrateGUI" default="deploy" basedir=".">
 
     <!-- Define directories -->

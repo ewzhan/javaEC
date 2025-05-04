@@ -10,7 +10,21 @@
     <property name="tomcat.dir" value="/opt/tomcat/apache-tomcat-9.0.104"/>
     <property name="tomcat.lib" value="${tomcat.dir}/lib"/>
     <property name="tomcat.webapps" value="${tomcat.dir}/webapps"/>
+<path id="project.classpath">
+    <fileset dir="lib">
+        <include name="*/.jar"/>
+    </fileset>
+</path>
 
+<target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src/java"
+           destdir="build/classes"
+           includeantruntime="false"
+           classpathref="project.classpath"
+           debug="true" />
+</target>
+    
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>

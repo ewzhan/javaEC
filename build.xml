@@ -46,6 +46,7 @@
          <war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web.xml">
              <fileset dir="${web.dir}"/>
              <classes dir="${classes.dir}"/>
+             <lib dir="lib"/>
          </war>
      </target>
  

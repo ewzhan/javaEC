@@ -34,7 +34,7 @@ public class AddCategory extends HttpServlet {
             
             String uploadPath = getServletContext().getRealPath("");
             Path currentPath = Paths.get(uploadPath).getParent().getParent();
-            String stringPath = currentPath + File.separator + "web" + File.separator + "image";
+            String stringPath = "https://wenzhanbucket.s3.amazonaws.com/images/";
             nowPath = Paths.get(stringPath, fileName);
             File uploadDir = new File(stringPath);
             if (!uploadDir.exists()){

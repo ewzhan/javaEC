@@ -8,7 +8,8 @@
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="war.file" value="${build.dir}/IntergrateGUI.war"/>
     <property name="tomcat.webapps" value="/opt/tomcat/apache-tomcat-9.0.104/webapps"/>
-
+    <property name="tomcat.lib" value="/opt/tomcat/apache-tomcat-9.0.104/lib"/>
+    
     <!-- Init build dirs -->
     <target name="init">
         <mkdir dir="${classes.dir}"/>
@@ -16,7 +17,17 @@
 
     <!-- Compile Java sources -->
     <target name="compile" depends="init">
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac 
+    srcdir="${src.dir}" 
+    destdir="${classes.dir}" 
+    includeantruntime="false"
+    classpath="/opt/tomcat/apache-tomcat-9.0.104/lib/servlet-api.jar"/>
+
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+    <classpath>
+        <pathelement location="${tomcat.lib}/servlet-api.jar"/>
+    </classpath>
+</javac>
     </target>
 
     <!-- Package WAR -->

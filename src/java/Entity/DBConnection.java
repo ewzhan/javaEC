@@ -5,7 +5,7 @@ import java.time.*;
 
 public class DBConnection {
     private Connection connection = null;
-    private String host = "jdbc:derby://localhost:1527/assignmentdb";
+    private String host = "jdbc:mysql://databaseforassignment.c3eozrschsjm.us-east-1.rds.amazonaws.com:3306/assignmentdb";
     private String username = "nbuser";
     private String password = "nbuser";
     private String driver;

@@ -13,7 +13,7 @@ public class DBConnection {
 
     public void initializeJdbc() {
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(host, username, password);
         } catch (Exception ex) {
             ex.printStackTrace();
